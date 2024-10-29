@@ -60,19 +60,23 @@ public class OpenCV extends OpMode {
             Rect leftRect = new Rect(1, 1, 639, 719);
             Rect rightRect = new Rect(640, 1, 639, 719);
 
+            telemetry.addLine("pipeline running1");
             input.copyTo(outPut);
+            telemetry.addLine("pipeline running1.5");
             Imgproc.rectangle(outPut, leftRect, rectColor, 2);
             Imgproc.rectangle(outPut, rightRect, rectColor, 2);
 
-            leftCrop = YCbCr.submat(leftRect);
-            rightCrop = YCbCr.submat(rightRect);
-
+            input.copyTo(outPut);
+            telemetry.addLine("pipeline running1.6");
+            leftCrop = outPut.submat(leftRect);
+            rightCrop = outPut.submat(rightRect);
+            telemetry.addLine("pipeline running2");
             Core.extractChannel(leftCrop, leftCrop, 2);
             Core.extractChannel(rightCrop, rightCrop, 2);
-
+            telemetry.addLine("pipeline running3");
             Scalar leftavg = Core.mean(leftCrop);
             Scalar rightavg = Core.mean(leftCrop);
-
+            telemetry.addLine("pipeline running4");
             leftavgfin = leftavg.val[0];
             rightavgfin = rightavg.val[0];
 
